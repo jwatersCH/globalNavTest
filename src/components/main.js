@@ -6,12 +6,12 @@ import HeadContainer from './HeadContainer';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-	this.state = {};
+	this.state = {product: 'Forsight', team: 'Nike A Team'};
 
   }
 	render() {
 		return <div>
-			<HeadContainer />
+			<HeadContainer product={this.state.product} team={this.state.team} />
 		</div>	
 	}
 };

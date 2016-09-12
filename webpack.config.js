@@ -25,6 +25,12 @@ module.exports = {
 		 {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 
         loader: 'file'
-      }]
+      },
+      {
+          test: /\.jpe?g$|\.gif$|\.png$|\.svg$/,
+          loaders: [
+            'url?limit=8192&hash=sha512&digest=hex&name=/img/[hash].[ext]',
+            'image?bypassOnDebug&optimizationLevel=7&interlaced=false'
+          ]}]
 	}
 	}
