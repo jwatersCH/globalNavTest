@@ -1,0 +1,64 @@
+
+#drawer{
+
+	position: absolute;
+	height: 100%;
+	width: 200px;
+	box-shadow : 1px 0px 3px 1px #ccc;
+	z-index: 99999;
+	background-color: white;
+}
+
+.drawerLinks{
+	color: black;
+	font-family: open sans;
+	font-size: 12px;
+	color: #000000;
+	opacity: 0.87;
+	display: inline-block;
+	font-weight: 600;
+}
+
+#create{
+	border-bottom: 1px solid gray;
+}
+
+#help{
+	border-top: 1px solid gray;
+}
+
+.linkContainer{
+	padding-top: 4px;
+	padding-bottom: 4px;
+	height: 48px;
+}
+
+.linkContainer:hover{
+	background-color: #e4e4e4;
+}
+
+.drawerOpen{
+	left: 0px;
+	transition: left .3s;
+}
+
+.drawerClosed{
+	left: -210px;
+	transition: left .3s;
+}
+
+#icons{
+	margin-left: 16px;
+	margin-right: 16px;
+	opacity: 0.54;
+	margin-top: 12px;
+	float: left;
+}
+
+#downArrow{
+	float: right;
+	margin-top: 12px;
+	color: #000;
+	opacity: 0.54;
+	margin-right: 16px;
+}

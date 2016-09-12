@@ -11,10 +11,10 @@ class HeadContainer extends React.Component{
   render(){
     return(
       <div id="container">
-        <img id="burger" src={burger} />
-        <img id="logo" src={logo} />
+        <img onClick={this.props.handleBurgerClick} id="burger" src={burger} />
+       
         <ProductSelect product={this.props.product}/>
-         <InitialIcon />
+        <InitialIcon />
         <TeamSelect team={this.props.team} />
        
       </div>
