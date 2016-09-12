@@ -1,5 +1,6 @@
 import React from 'react';
 
+import HeadContainer from './HeadContainer';
 
 
 class Main extends React.Component {
@@ -10,7 +11,7 @@ class Main extends React.Component {
   }
 	render() {
 		return <div>
-			<h1>Hello World</h1>
+			<HeadContainer />
 		</div>	
 	}
 };
