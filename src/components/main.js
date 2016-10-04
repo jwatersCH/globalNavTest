@@ -2,6 +2,9 @@ import React from 'react';
 
 import HeadContainer from './HeadContainer';
 import Drawer from './drawer';
+import BarChart from './barChartTwo';
+import Card from './card';
+import Slider from 'material-ui/Slider';
 
 import dropup from '../img/arrow_dropup.svg';
 import dropdown from '../img/arrow_dropdown.svg';
@@ -15,7 +18,23 @@ import fonts from '../sass/fonts.scss';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-	this.state = {product: 'Forsight', listedProducts: products, team: 'Team A', listedTeams: teams, open: 'drawerClosed', productArrow: dropdown, teamArrow: dropdown, showProducts: 'otherProductsHide', showTeams: 'otherTeamsHide', showTeamsSettings: 'teamListInSettingsHide', productContainer: 'productSelectContainer', teamContainer: 'teamSelectContainer', showProfile: 'profileHidden' };
+	this.state = {
+            product: 'Forsight', 
+            listedProducts: products, 
+            team: 'Team A', 
+            listedTeams: teams, 
+            open: 'drawerClosed', 
+            productArrow: dropdown, 
+            teamArrow: dropdown, 
+            showProducts: 'otherProductsHide', 
+            showTeams: 'otherTeamsHide', 
+            showTeamsSettings: 'teamListInSettingsHide', 
+            productContainer: 'productSelectContainer', 
+            teamContainer: 'teamSelectContainer', 
+            showProfile: 'profileHidden',
+            primaryColorOne: '#eeeeee',
+            secondaryColorOne: '#dddddd'
+          };
 	this.handleBurgerClick = this.handleBurgerClick.bind(this);
   this.handleProductClick = this.handleProductClick.bind(this);
   this.handleTeamClick = this.handleTeamClick.bind(this);
@@ -25,6 +44,8 @@ class Main extends React.Component {
   this.teamClickUpdate = this.teamClickUpdate.bind(this);
   this.teamInSettingsClickUpdate = this.teamInSettingsClickUpdate.bind(this);
   this.handleTeamInSettingsClick = this.handleTeamInSettingsClick.bind(this);
+  this.capture = this.capture.bind(this);
+  this.captureSecondary = this.captureSecondary.bind(this);
   }
 
   handleBurgerClick(){
@@ -138,8 +159,67 @@ class Main extends React.Component {
   }
 
   closeAll(){
-    this.setState({showProfile: 'profileHidden', showTeams: 'otherTeamsHide', showProducts: 'otherProductsHide', open: 'drawerClosed', teamArrow: dropdown, productArrow: dropdown, productContainer: 'productSelectContainer', teamContainer: 'teamSelectContainer'})
+    this.setState({
+              showProfile: 'profileHidden', 
+              showTeams: 'otherTeamsHide', 
+              showProducts: 'otherProductsHide', 
+              open: 'drawerClosed', 
+              teamArrow: dropdown, 
+              productArrow: dropdown, 
+              productContainer: 'productSelectContainer', 
+              teamContainer: 'teamSelectContainer'
+            })
   }
+
+  getColorContrast(hexcolor){
+    var r = parseInt(hexcolor.substr(0,2),16);
+    var g = parseInt(hexcolor.substr(2,2),16);
+    var b = parseInt(hexcolor.substr(4,2),16);
+    var yiq = ((r*299)+(g*587)+(b*114))/1000;
+    return (yiq >= 128) ? 'black' : 'white';
+  }
+
+  capture(e){
+    console.log('hi')
+      if(e.keyCode == 13) {
+          var newText=document.getElementById('primaryTextOne').value
+          e.preventDefault()
+          this.setState({primaryColorOne: newText})
+          this.setSecondaryColor(newText)
+      }
+
+    }
+
+     captureSecondary(e){
+      if(e.keyCode == 13) {
+          var newText=document.getElementById('secondaryTextOne').value
+          e.preventDefault()
+          this.setState({secondaryColorOne: newText})
+      }
+
+    }
+
+    setSecondaryColor(primary){
+      var newSecondaryColor = '#'
+      var arr = []
+      arr.push(primary.slice(1,2) - 2)
+      arr.push(primary.slice(2,3) - 2)
+      arr.push(primary.slice(3,4) - 2)
+      arr.push(primary.slice(4,5) - 2)
+      arr.push(primary.slice(5,6) - 2)
+      arr.push(primary.slice(6,7) - 2)
+      for(var i=0; i< arr.length; i++){
+        if(arr[i] < 0){
+          newSecondaryColor = newSecondaryColor + '0'
+        }
+        else{
+        newSecondaryColor = newSecondaryColor + arr[i]
+      }
+      }
+      this.setState({secondaryColorOne: newSecondaryColor})
+    } 
+
+
 
 	render() {
 		return <div>
@@ -166,7 +246,17 @@ class Main extends React.Component {
         showTeamsSettings={this.state.showTeamsSettings}
       />
 			<Drawer open={this.state.open}/>
-      <div style={{width: '100%', height: '100vh'}}  onClick={this.closeAll}></div>
+      <div style={{width: '100vw', height: '100vh'}}  onClick={this.closeAll}>
+        <BarChart 
+          primaryColor={this.state.primaryColorOne} 
+          primaryHex={this.state.primaryColorOne}
+          secondaryColor={this.state.secondaryColorOne}
+          textColor={this.getColorContrast(this.state.primaryColorOne.slice(1,6))} 
+          colorId='primaryColorOne' 
+          capture={this.capture}
+          captureSecondary={this.captureSecondary}
+        />
+      </div>
 		</div>	
 	}
 };
